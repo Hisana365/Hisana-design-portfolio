@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --paper: #f5f7fa; --ink: #15171d; --mute: #5a6070; --line: #d9dde5;
+  --c: #0099d6; --m: #d4006f; --y: #ffd400;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --paper: #111319; --ink: #eef0f5; --mute: #9aa1b2; --line: #2a2e3a; --c: #38b6ee; --m: #ff4da0; --y: #ffd400; }
+}
+html { scroll-behavior: smooth; }
+body { background: var(--paper); color: var(--ink); line-height: 1.65; }
+:focus-visible { outline: 2px solid var(--m); outline-offset: 3px; }
+
+/* Crop marks: the corner ticks print designers place around artwork */
+.crop { position: relative; }
+.crop::before, .crop::after, .crop > .crop-b::before, .crop > .crop-b::after {
+  content: ""; position: absolute; width: 22px; height: 22px; border-color: var(--ink); opacity: .55;
+}
+.crop::before { top: -12px; left: -12px; border-top: 1px solid; border-left: 1px solid; }
+.crop::after { top: -12px; right: -12px; border-top: 1px solid; border-right: 1px solid; }
+.crop > .crop-b::before { bottom: -12px; left: -12px; border-bottom: 1px solid; border-left: 1px solid; }
+.crop > .crop-b::after { bottom: -12px; right: -12px; border-bottom: 1px solid; border-right: 1px solid; }
+.crop-b { position: absolute; inset: 0; pointer-events: none; }
+
+/* One load moment: CMYK bars slide in */
+@keyframes slide { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+.bar { transform-origin: left; animation: slide .9s cubic-bezier(.2,.7,.2,1) both; }
+@media (prefers-reduced-motion: reduce) { .bar { animation: none; } html { scroll-behavior: auto; } }
